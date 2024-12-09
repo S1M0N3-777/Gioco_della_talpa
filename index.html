@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="static/css/index.css">
+</head>
+<body>
+    <div class="parent">
+        <div class="child"></div>
+        <div class="child"></div>
+        <div class="child"></div>
+        <div class="child"></div>
+        <div class="child"></div>
+        <div class="child"></div>
+        <div class="startGame">
+            <a id="start" href="#">START</a>
+        </div>
+    </div>
+    <script>
+        function activeElementListener(e){
+            console.log(e.currentTarget)
+        }
+
+        function random(min, max) {
+        let n = Math.random() * (max - min) + min
+        n = parseInt(n)
+        console.log(n)
+        return n
+                    }
+
+        let button = document.querySelector("start")
+        button.addEventListener(function(e){
+            let rnd = random(1000,4000)
+
+        })
+
+
+         //document.querySelector("active").addEventListener()
+         // Questo va fatto dopo aver assegnato la classe active
+
+        //Step 1: addEventListener sul pulsante di start per avviare il gioco
+
+        /*
+            Una volta che il gioco è avviato dobbiamo identificare casualmente:
+            1 - un tempo (che sarà il tempo di "accensione")
+            2 - un elemento da modificare
+
+
+            nel loop di gioco principale:
+            - identificare un elemento casuale all'interno della griglia 
+            - assegnare la classe active dell'elemento
+            - usare setTimeout per rimuovere la classe dopo un tot di tempo
+            - nel setTimeout devo anche rimuovere l'eventListener
+
+            Mentre la clase active è assegnata all'elemento tenere attivo un event listener
+        */
+    </script>
+</body>
+</html>
