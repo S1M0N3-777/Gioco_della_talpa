@@ -4,9 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/nes.css/2.3.0/css/nes.min.css" rel="stylesheet"> 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/nes.css/2.3.0/css/nes-core.min.css" rel="stylesheet">
     <link rel="stylesheet" href="static/css/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oswald:wght@200..700&family=Quicksand:wght@300..700&family=Sixtyfour&display=swap" rel="stylesheet">
+    <style>
+    
+    </style>
 </head>
 <body>
+    <div class="container">
+        <div class="top-text">
+            "MASTINO LAVICO PER NOI!"
+            <img src="static\img\download-removebg-preview.png" alt="#" >
+        </div>
+        <div class="description-text">
+            <p> Benvenuto nel gioco <b> "MASTINO LAVICO PER NOI!" </b>, <br> premi il pulsante <b>START</b> e con il tuo martello colpisci tutti i mastini. <br>
+            <b>ATTENTO</b>, perderai una vita se non dovessi colpire il mastino. </p> <br>
+        </div>
+        <p id="gl"> BUONA FORTUNA! </p>
     <div class="parent">
         <div class="child"></div>
         <div class="child"></div>
@@ -14,8 +32,19 @@
         <div class="child"></div>
         <div class="child"></div>
         <div class="child"></div>
-        <div class="startGame">
-            <a id="start" href="#">START</a>
+    </div>
+    <div class="startGame">
+        <a id="start" class="nes-btn is-primary" href="#">START</a>
+    </div>
+    <div class="progress-bar">
+        <progress class="nes-progress is-success" value="10" max="100"></progress>
+        </div>
+
+        <div class="hearts">
+            <i class="nes-icon is-large heart"></i>
+            <i class="nes-icon is-large heart"></i>
+            <i class="nes-icon is-large heart"></i>
+            <i class="nes-icon is-large heart"></i>
         </div>
     </div>
     <script>
