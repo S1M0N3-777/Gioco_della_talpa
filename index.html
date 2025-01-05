@@ -36,16 +36,13 @@
     <div class="startGame">
         <a id="start" class="nes-btn is-primary" href="#">START</a>
     </div>
-    <div class="progress-bar">
-        <progress class="nes-progress is-success" value="10" max="100"></progress>
-        </div>
-
         <div class="hearts">
             <i class="nes-icon is-large heart"></i>
             <i class="nes-icon is-large heart"></i>
             <i class="nes-icon is-large heart"></i>
         </div>
     </div>
+    <div id="tempo">00</div>
     <script>
        // function activeElementListener(e){
          //   console.log(e.currentTarget)
@@ -56,7 +53,14 @@
         let randomBlock
         let DurataGioco
         let imageTurn
-        let timer = 2100
+        let timer = random(1500,3000)
+        let mastin = new Audio('static/audio/cicciogamer89-mastino-lavico.mp3')
+        let no = new Audio('static/audio/cicciogamer89-nooo.mp3')
+        let coin = new Audio('static/audio/coin-257878.mp3')
+        let paguri = new Audio('static/audio/ciccio-capo-branco_DIZljOo.mp3')
+        let score
+        let tempo = document.querySelector("#tempo")
+        let tempo2 
 
 
         function random(min, max) {
@@ -66,12 +70,23 @@
         return n
                     }
 
+        function reset(){
+            child[randomBlock].classList.remove("child")
+            child[randomBlock].classList.add("active")
+        }
+
 
    function start(){
+    tempo2=parseInt(prompt("Prima di iniziare, quanti SECONDI vuoi giocare?"))
+    while(isNaN(tempo2) || tempo2<= 0){
+        alert("Inserisci un numero valido")
+        tempo2=parseInt(prompt("Prima di iniziare, quanti SECONDI vuoi giocare?"))
+    }
+    mastin.play()
             let randomBlockbefore = -1
 
             setInterval(function(e){
-                if (randomBlockbefore !== -1) {  // QUesto if mi serve perchè nelle primi 2 "giri" di iterazione, il blocco non veniva resettato, in questo modo forzo il reset.
+                if (randomBlockbefore !== -1) {  // Questo if mi serve perchè nelle primi 2 "giri" di iterazione, il blocco non veniva resettato, in questo modo forzo il reset.
                 child[randomBlockbefore].classList.remove("active");
                 child[randomBlockbefore].classList.add("child");
             }
@@ -82,15 +97,15 @@
                 }while(randomBlock === randomBlockbefore)
                 randomBlockbefore = randomBlock
 
-            child[randomBlock].classList.remove("child")
-            child[randomBlock].classList.add("active")
+                reset()
 
-            imageTurn = random(5000,5100)
+            imageTurn = random(1500,1700)
             setTimeout(function(e){
                     child[randomBlock].classList.remove("active")
                     child[randomBlock].classList.add("child")
-                    console.log("ciaone")
+                    
             },imageTurn)
+                timer = random(2000,2200)
             },timer)
         } 
        
@@ -102,12 +117,17 @@
    for (i=0; i<child.length; i++){
             child[i].addEventListener("click",function(event){
                 let el=event.currentTarget
+                reset()
                 console.log("ciao")
                 if(el.classList.contains("active")){
-                    console.log("Lipao")
+                    coin.play()
+                    score += 1
+                    //console.log("Lipao")
                 }else{
                     // Blocco allo stato base (Rimuovi una vita)
-                    console.log("kilian")
+                    //console.log("kilian")
+                    no.play()
+                    score -= 1
                 }
             })
         }
