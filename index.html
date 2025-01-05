@@ -56,6 +56,7 @@
         let randomBlock
         let DurataGioco
         let imageTurn
+        let timer = 2100
 
 
         function random(min, max) {
@@ -66,29 +67,51 @@
                     }
 
 
-        function start(){
-            randomBlock = random(0,6)
-            imageTurn = random(900,3000)
+   function start(){
+            let randomBlockbefore = -1
+
+            setInterval(function(e){
+                if (randomBlockbefore !== -1) {  // QUesto if mi serve perchè nelle primi 2 "giri" di iterazione, il blocco non veniva resettato, in questo modo forzo il reset.
+                child[randomBlockbefore].classList.remove("active");
+                child[randomBlockbefore].classList.add("child");
+            }
+                do{
+                    
+                    randomBlock = random(0,6)
+                    
+                }while(randomBlock === randomBlockbefore)
+                randomBlockbefore = randomBlock
+
             child[randomBlock].classList.remove("child")
             child[randomBlock].classList.add("active")
-            
+
+            imageTurn = random(5000,5100)
+            setTimeout(function(e){
+                    child[randomBlock].classList.remove("active")
+                    child[randomBlock].classList.add("child")
+                    console.log("ciaone")
+            },imageTurn)
+            },timer)
+        } 
+       
 
 
-        }
+
 
         
-        for (i=0; i<child.length; i++){
+   for (i=0; i<child.length; i++){
             child[i].addEventListener("click",function(event){
                 let el=event.currentTarget
                 console.log("ciao")
-                if(revealed === true){
-                    // Bersaglio colpito (Aggiungi punteggio)
+                if(el.classList.contains("active")){
+                    console.log("Lipao")
                 }else{
                     // Blocco allo stato base (Rimuovi una vita)
+                    console.log("kilian")
                 }
             })
         }
-        button.addEventListener("click", start)
+        button.addEventListener("click", start) 
 
 
          //document.querySelector("active").addEventListener()
