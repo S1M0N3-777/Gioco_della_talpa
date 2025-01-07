@@ -25,6 +25,7 @@
             <b>ATTENTO</b>, perderai una vita se non dovessi colpire il mastino. </p> <br>
         </div>
         <p id="gl"> BUONA FORTUNA! </p>
+        <div id="score">Punteggio: 0</div>
     <div class="parent">
         <div class="child"></div>
         <div class="child"></div>
@@ -36,13 +37,16 @@
     <div class="startGame">
         <a id="start" class="nes-btn is-primary" href="#">START</a>
     </div>
+    <div id="tempo"></div>
         <div class="hearts">
             <i class="nes-icon is-large heart"></i>
             <i class="nes-icon is-large heart"></i>
             <i class="nes-icon is-large heart"></i>
         </div>
+        <div class="finale">
+            <div id="Punteggio">Il tuo Punteggio è stato di:</div>
+        </div>
     </div>
-    <div id="tempo">00</div>
     <script>
        // function activeElementListener(e){
          //   console.log(e.currentTarget)
@@ -58,9 +62,14 @@
         let no = new Audio('static/audio/cicciogamer89-nooo.mp3')
         let coin = new Audio('static/audio/coin-257878.mp3')
         let paguri = new Audio('static/audio/ciccio-capo-branco_DIZljOo.mp3')
-        let score
+        let score = 0
         let tempo = document.querySelector("#tempo")
         let tempo2 
+        let aggiornapunteggio = document.querySelector("#score")
+        let vite = 3
+        let hearticons = document.querySelectorAll(".nes-icon")
+        let heartindex
+        // console.log(hearticons) debug
 
 
         function random(min, max) {
@@ -70,67 +79,100 @@
         return n
                     }
 
-        function reset(){
+     /*   function reset(){
             child[randomBlock].classList.remove("child")
             child[randomBlock].classList.add("active")
-        }
+        } */
 
-
+    function aggiornaVite() {
+        if (vite > 0) {
+        vite -= 1
+        hearticons[vite].classList.remove("heart")
+        hearticons[vite].classList.add("heart-empty")
+    }
+}
    function start(){
     tempo2=parseInt(prompt("Prima di iniziare, quanti SECONDI vuoi giocare?"))
-    while(isNaN(tempo2) || tempo2<= 0){
-        alert("Inserisci un numero valido")
+    while(isNaN(tempo2) || tempo2<= 5){
+        alert("Non è possibile giocare meno di 5 secondi / Inserisci un valore accettato")
         tempo2=parseInt(prompt("Prima di iniziare, quanti SECONDI vuoi giocare?"))
     }
     mastin.play()
             let randomBlockbefore = -1
 
-            setInterval(function(e){
-                if (randomBlockbefore !== -1) {  // Questo if mi serve perchè nelle primi 2 "giri" di iterazione, il blocco non veniva resettato, in questo modo forzo il reset.
-                child[randomBlockbefore].classList.remove("active");
-                child[randomBlockbefore].classList.add("child");
+            let timerInterval = setInterval(function () {
+        tempo2 -= 1;
+        tempo.innerHTML = "Tempo rimanente: " + tempo2
+
+        if (tempo2 <= 0 || vite === 0) {
+            clearInterval(timerInterval)// Ferma il countdown
+            clearInterval(gameInterval)// Ferma il ciclo di gioco
+
+            // Rimuovi i listener di clic dai blocchi
+            for (let i = 0; i < child.length; i++) {
+                child[i].removeEventListener("click", blocchi)
             }
-                do{
-                    
-                    randomBlock = random(0,6)
-                    
-                }while(randomBlock === randomBlockbefore)
-                randomBlockbefore = randomBlock
 
-                reset()
-
-            imageTurn = random(1500,1700)
+            alert("Gioco terminato! Punteggio finale: " + score)
             setTimeout(function(e){
-                    child[randomBlock].classList.remove("active")
-                    child[randomBlock].classList.add("child")
-                    
-            },imageTurn)
-                timer = random(2000,2200)
-            },timer)
-        } 
-       
+                location.reload() // L'ho messo per ricaricare la pagina
+            },3000)
+        }
+    }, 1000)
 
+    // Intervallo per il ciclo di gioco
+    let gameInterval = setInterval(function (e) {
+        //Devo forzare il reset
+        if (randomBlockbefore !== -1) {
+            child[randomBlockbefore].classList.remove("active")
+            child[randomBlockbefore].classList.add("child")
+        }
+        do {
+            randomBlock = random(0, child.length)
+        } while (randomBlock === randomBlockbefore)
 
+        randomBlockbefore = randomBlock;
+        child[randomBlock].classList.add("active")
+        child[randomBlock].classList.remove("child")
 
-
+        imageTurn = random(1500, 1700)
+        setTimeout(function () {
+            if (tempo2 > 0) { // Controlla che il tempo non sia scaduto
+                child[randomBlock].classList.remove("active")
+                child[randomBlock].classList.add("child")
+            }
+        }, imageTurn)
+    }, timer)
+}
         
-   for (i=0; i<child.length; i++){
-            child[i].addEventListener("click",function(event){
-                let el=event.currentTarget
-                reset()
+       
+function blocchi(){
+    let el=event.currentTarget
                 console.log("ciao")
+
                 if(el.classList.contains("active")){
                     coin.play()
                     score += 1
+                    aggiornapunteggio.innerHTML = "Punteggio: "+score
                     //console.log("Lipao")
+                    child[randomBlock].classList.add("child")
+                    child[randomBlock].classList.remove("active")
                 }else{
                     // Blocco allo stato base (Rimuovi una vita)
                     //console.log("kilian")
                     no.play()
                     score -= 1
+                    aggiornapunteggio.innerHTML = "Punteggio: "+score
+                    aggiornaVite()
                 }
-            })
-        }
+}
+
+
+
+        
+   for (i=0; i<child.length; i++){
+            child[i].addEventListener("click",blocchi)   
+            }
         button.addEventListener("click", start) 
 
 

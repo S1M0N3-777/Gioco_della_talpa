@@ -7,7 +7,7 @@
 }
 
 .child{
-    background-image:  url('https://i.pinimg.com/736x/d0/5c/5d/d05c5da0589ef51aacfd78bf6f84a1e4.jpg');
+    background-image:  url('/static/img/d05c5da0589ef51aacfd78bf6f84a1e4.jpg');
     background-size: contain; 
     background-repeat: no-repeat;
     background-position: center; 
