@@ -7,8 +7,8 @@
 }
 
 .child{
-    background-image:  url('/static/img/d05c5da0589ef51aacfd78bf6f84a1e4.jpg');
-    background-size: contain; 
+    background-image:  url('../img/magicchest.png');
+    background-size: cover; 
     background-repeat: no-repeat;
     background-position: center; 
     width: 90px;

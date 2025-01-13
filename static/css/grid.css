@@ -8,7 +8,7 @@
 
 
 .active{
-    background-image: url('/static/img/pngegg.png');
+    background-image: url('../img/pngegg.png');
     background-size: contain; 
     background-repeat: no-repeat; 
     width: 90px;
@@ -75,7 +75,9 @@
 body{
     height: 100vh;
     width: 100vw;
-    background-color: yellow;
+    background-image: url('https://images2.alphacoders.com/112/1124066.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .progress-bar{
@@ -90,10 +92,15 @@ body{
 }
 
 .startGame{
-    margin: 25px;
+    margin-top: 155px;
 }
 
 .hearts{
-    padding-top: 25px;
+    margin-top: 35px; 
     gap: 15px;
+}
+
+#tempo{
+    margin-top: 20px;
+
 }
