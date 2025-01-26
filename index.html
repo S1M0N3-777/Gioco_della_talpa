@@ -47,7 +47,7 @@
             <i class="nes-icon is-large heart"></i>
         </div>
         <div class="finale">
-            <div id="Punteggio">Il tuo Punteggio è stato di:</div>
+            <div id="Punteggio"></div>
         </div>
     </div>
     <script>
@@ -72,6 +72,7 @@
         let vite = 3
         let hearticons = document.querySelectorAll(".nes-icon")
         let heartindex
+        let finale = document.querySelector(".finale");
         // console.log(hearticons) debug
 
 
@@ -91,7 +92,7 @@
         if (vite > 0) {
         vite -= 1
         hearticons[vite].classList.remove("heart")
-        hearticons[vite].classList.add("heart-empty")
+        hearticons[vite].classList.add("is-transparent heart")
     }
 }
    function start(){
@@ -117,6 +118,8 @@
             }
 
             alert("Gioco terminato! Punteggio finale: " + score)
+            finale.style.display = 'block';
+            finale.innerHTML = "Il tuo Punteggio è stato di: " + score;
             setTimeout(function(e){
                 location.reload() // L'ho messo per ricaricare la pagina
             },3000)
